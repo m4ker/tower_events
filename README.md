@@ -79,7 +79,7 @@ user
     name
     created_at
     updated_at
-team_user
+members
     team_id
     user_id
 project
@@ -93,6 +93,7 @@ access
     project_id
 todo
     id
+    project_id
     title
     description
     user_id
@@ -124,4 +125,40 @@ event
     updated_at
 </pre>
 
+## 模型关系
 
+<pre>
+team
+    has_many: user, through: :members
+    has_many: products
+    has_many: events
+    
+user
+    has_many: teams, through: :members
+    belongs_to: project, through: :accesses
+    has_many: events
+    has_many: todos
+    has_many: comments
+
+project
+    belongs_to: team
+    has_many: users
+    has_many: todos
+    has_many: events
+    
+todo
+    belongs_to: project
+    belongs_to: user
+    #belongs_to: owner
+    has_many: comments
+    
+comment
+    belongs_to: todo
+    belongs_to: user
+    
+event
+    belongs_to: team
+    belongs_to: project
+    belongs_to: user
+
+</pre>
