@@ -71,6 +71,7 @@ comment
 team
     id
     name
+    user_id
     created_at
     updated_at
 user
@@ -99,7 +100,7 @@ todo
     user_id
     owner_id
     deadline
-    status
+    status      1 初始状态 2 进行中 3 已完成
     created_at
     updated_at
 comment
@@ -129,19 +130,21 @@ event
 
 <pre>
 team
-    has_many: user, through: :members
+    has_many: users, through: :members
     has_many: products
     has_many: events
+    # belongs_to: user
     
 user
     has_many: teams, through: :members
-    belongs_to: project, through: :accesses
+    belongs_to: project
     has_many: events
     has_many: todos
     has_many: comments
 
 project
     belongs_to: team
+    belongs_to: user
     has_many: users
     has_many: todos
     has_many: events
@@ -162,3 +165,503 @@ event
     belongs_to: user
 
 </pre>
+
+## 测试数据
+<pre>
+users:
+    maker:
+      id: 1
+      email: makerwang@gmail.com
+      name: maker
+      created_at: 2016-01-01 00:00:00
+      updated_at: 2016-01-01 00:00:00
+    bobhero:
+      id: 2
+      email: bobhero@gmail.com
+      name: bobhero
+      created_at: 2016-01-01 00:00:00
+      updated_at: 2016-01-01 00:00:00
+    rockingpanda:
+      id: 3
+      email: rockingpanda@gmail.com
+      name: rockingpanda
+      created_at: 2016-01-01 00:00:00
+      updated_at: 2016-01-01 00:00:00
+
+teams:
+    m4b:
+      id: 1
+      name: m4b
+      user_id: 1
+      created_at: 2016-01-01 02:00:00
+      updated_at: 2016-01-01 02:00:00
+    panda:
+      id: 2
+      name: panda
+      user_id: 3
+      created_at: 2016-01-01 01:00:00
+      updated_at: 2016-01-01 01:00:00
+
+members:
+    one:
+      team_id: 1
+      user_id: 1
+    two:
+      team_id: 1
+      user_id: 2
+    three:
+      team_id: 2
+      user_id: 1
+    four:
+      team_id: 2
+      user_id: 3
+
+projects:
+    snakesofchina:
+      id: 1
+      team_id: 1
+      user_id: 1
+      name: snakesofchina
+      created_at: 2016-01-01 03:00:00
+      updated_at: 2016-01-01 03:00:00
+    koa:
+      id: 2
+      team_id: 1
+      user_id: 1
+      name: koa
+      created_at: 2016-01-01 04:00:00
+      updated_at: 2016-01-01 04:00:00
+    autotab:
+      id: 3
+      team_id: 2
+      user_id: 3
+      name: autotab
+      created_at: 2016-01-01 05:00:00
+      updated_at: 2016-01-01 05:00:00
+access
+    one:
+      user_id: 1
+      project_id: 1
+    two:
+      user_id: 1
+      project_id: 2
+    three:
+      user_id: 1
+      project_id: 3
+    four:
+      user_id: 2
+      project_id: 2
+    five:
+      user_id: 3
+      project_id: 3
+todo
+    p1_1:
+      id: 1
+      project_id: 1
+      title: 任务1-1
+      description: 任务1的描述
+      user_id: 1
+      owner_id: 1
+      deadline: 2016-01-02
+      status: 3
+      created_at: 2016-01-01 03:30:00
+      updated_at: 2016-01-01 03:30:00
+    p1_2:
+      id: 2
+      project_id: 1
+      title: 任务1-2
+      description: 任务2的描述
+      user_id: 1
+      owner_id: 1
+      deadline: 2016-01-02
+      status: 3
+      created_at: 2016-01-01 04:00:00
+      updated_at: 2016-01-01 04:00:00
+    p1_3:
+      id: 3
+      project_id: 1
+      title: 任务1-3
+      description: 任务3的描述
+      user_id: 1
+      owner_id: 1
+      deadline: 2016-01-02
+      status: 3
+      created_at: 2016-01-02 05:00:00
+      updated_at: 2016-01-02 05:00:00
+    p2_1:
+      id: 4
+      project_id: 2
+      title: 任务2-4
+      description: 任务4的描述
+      user_id: 2
+      owner_id: 2
+      deadline: 2016-01-02
+      status: 3
+      created_at: 2016-01-02 06:00:00
+      updated_at: 2016-01-02 06:00:00
+    p1_5:
+      id: 5
+      project_id: 1
+      title: 任务1-5
+      description: 任务5的描述
+      user_id: 1
+      owner_id: 1
+      deadline: 2016-01-02
+      status: 3
+      created_at: 2016-01-02 07:00:00
+      updated_at: 2016-01-02 07:00:00
+    p1_6:
+      id: 6
+      project_id: 1
+      title: 任务1-6
+      description: 任务6的描述
+      user_id: 1
+      owner_id: 1
+      deadline: 2016-01-03
+      status: 3
+      created_at: 2016-01-02 08:00:00
+      updated_at: 2016-01-02 08:00:00
+    p3_7:
+      id: 7
+      project_id: 3
+      title: 任务3-7
+      description: 任务7的描述
+      user_id: 1
+      owner_id: 1
+      deadline: 2016-01-04
+      status: 3
+      created_at: 2016-01-03 09:00:00
+      updated_at: 2016-01-03 09:00:00
+    p3_8:
+      id: 8
+      project_id: 3
+      title: 任务3-8
+      description: 任务8的描述
+      user_id: 3
+      owner_id: 3
+      deadline: 2016-01-05
+      status: 3
+      created_at: 2016-01-03 10:00:00
+      updated_at: 2016-01-03 10:00:00
+    p2_2:
+      id: 9
+      project_id: 2
+      title: 任务2-9
+      description: 任务9的描述
+      user_id: 1
+      owner_id: 2
+      deadline: 2016-01-06
+      status: 3
+      created_at: 2016-01-03 11:00:00
+      updated_at: 2016-01-03 11:00:00
+    p2_3:
+      id: 10
+      project_id: 2
+      title: 任务2-10
+      description: 任务10的描述
+      user_id: 2
+      owner_id: 1
+      deadline: 2016-01-06
+      status: 3
+      created_at: 2016-01-03 12:00:00
+      updated_at: 2016-01-03 12:00:00
+    
+
+comment
+    c4_1:
+      id: 1
+      todo_id: 4
+      user_id: 2
+      content: 评论2-1内容4—1
+      created_at: 2016-01-02 07:00:00
+      updated_at: 2016-01-02 07:00:00
+    c4_2:
+      id: 2
+      todo_id: 4
+      user_id: 1
+      content: 评论2-1内容4—2
+      created_at: 2016-01-02 08:00:00
+      updated_at: 2016-01-02 08:00:00
+    c4_3:
+      id: 3
+      todo_id: 4
+      user_id: 2
+      content: 评论2-1内容4—3
+      created_at: 2016-01-02 09:00:00
+      updated_at: 2016-01-02 09:00:00
+    c8_1:
+      id: 4
+      todo_id: 8
+      user_id: 3
+      content: 评论3-8内容8—1
+      created_at: 2016-01-03 17:00:00
+      updated_at: 2016-01-03 17:00:00
+    c8_2:
+      id: 5
+      todo_id: 8
+      user_id: 1
+      content: 评论3-8内容8—2
+      created_at: 2016-01-03 18:00:00
+      updated_at: 2016-01-03 18:00:00
+      
+event
+    e_1:
+      id:1
+      team_id:1
+      project_id:1
+      user_id:1
+      username:maker
+      action:create
+      object:project
+      object_id:1
+      title:snakesofchina
+      content:
+      data:
+      created_at: 2016-01-01 03:00:00
+      updated_at: 2016-01-01 03:00:00
+    e_2:
+      id:2
+      team_id:1
+      project_id:1
+      user_id:1
+      username:maker
+      action:create
+      object:todo
+      object_id:1
+      title:任务1-1
+      content:
+      data:
+      created_at: 2016-01-01 03:30:00
+      updated_at: 2016-01-01 03:30:00
+    e_3:
+      id:3
+      team_id:1
+      project_id:2
+      user_id:1
+      username:maker
+      action:create
+      object:project
+      object_id:2
+      title:koa
+      content:
+      data:
+      created_at: 2016-01-01 04:00:00
+      updated_at: 2016-01-01 04:00:00
+    e_4:
+      id:4
+      team_id:1
+      project_id:1
+      user_id:1
+      username:maker
+      action:create
+      object:todo
+      object_id:2
+      title:任务1-2
+      content:
+      data:
+      created_at: 2016-01-01 04:00:00
+      updated_at: 2016-01-01 04:00:00
+    e_5:
+      id:5
+      team_id:2
+      project_id:3
+      user_id:3
+      username:rockingpanda
+      action:create
+      object:project
+      object_id:3
+      title:autotab
+      content:
+      data:
+      created_at: 2016-01-01 05:00:00
+      updated_at: 2016-01-01 05:00:00
+    e_6:
+      id:6
+      team_id:1
+      project_id:1
+      user_id:1
+      username:maker
+      action:create
+      object:todo
+      object_id:3
+      title:任务1-3
+      content:
+      data:
+      created_at: 2016-01-02 05:00:00
+      updated_at: 2016-01-02 05:00:00
+    e_7:
+      id:7
+      team_id:1
+      project_id:2
+      user_id:2
+      username:bobhero
+      action:create
+      object:todo
+      object_id:4
+      title:任务2-4
+      content:
+      data:
+      created_at: 2016-01-02 06:00:00
+      updated_at: 2016-01-02 06:00:00
+    e_8:
+      id:8
+      team_id:1
+      project_id:1
+      user_id:1
+      username:maker
+      action:create
+      object:todo
+      object_id:5
+      title:任务1-5
+      content:
+      data:
+      created_at: 2016-01-02 07:00:00
+      updated_at: 2016-01-02 07:00:00
+    e_9:
+      id:9
+      team_id:1
+      project_id:2
+      user_id:2
+      username:bobhero
+      action:comment
+      object:todo
+      object_id:4
+      title:任务1-4
+      content:评论2-1内容4—1
+      data:
+      created_at: 2016-01-02 07:00:00
+      updated_at: 2016-01-02 07:00:00
+    e_10:
+      id:10
+      team_id:1
+      project_id:1
+      user_id:1
+      username:maker
+      action:create
+      object:todo
+      object_id:6
+      title:任务1-6
+      content:
+      data:
+      created_at: 2016-01-02 08:00:00
+      updated_at: 2016-01-02 08:00:00
+    e_11:
+      id:11
+      team_id:1
+      project_id:2
+      user_id:1
+      username:maker
+      action:comment
+      object:todo
+      object_id:4
+      title:任务1-4
+      content:评论2-1内容4—2
+      data:
+      created_at: 2016-01-02 08:00:00
+      updated_at: 2016-01-02 08:00:00
+    e_12:
+      id:12
+      team_id:2
+      project_id:3
+      user_id:1
+      username:maker
+      action:create
+      object:todo
+      object_id:7
+      title:任务3-7
+      content:
+      data:
+      created_at: 2016-01-03 09:00:00
+      updated_at: 2016-01-03 09:00:00
+    e_13:
+      id:13
+      team_id:1
+      project_id:2
+      user_id:2
+      username:bobhero
+      action:comment
+      object:todo
+      object_id:4
+      title:任务1-4
+      content:评论2-1内容4—3
+      data:
+      created_at: 2016-01-02 09:00:00
+      updated_at: 2016-01-02 09:00:00
+    e_14:
+      id:14
+      team_id:2
+      project_id:3
+      user_id:3
+      username:rockingpanda
+      action:create
+      object:todo
+      object_id:8
+      title:任务3-8
+      content:
+      data:
+      created_at: 2016-01-03 10:00:00
+      updated_at: 2016-01-03 10:00:00
+    e_15:
+      id:15
+      team_id:1
+      project_id:2
+      user_id:1
+      username:maker
+      action:create
+      object:todo
+      object_id:9
+      title:任务2-9
+      content:
+      data:
+      created_at: 2016-01-03 11:00:00
+      updated_at: 2016-01-03 11:00:00
+    e_16:
+      id:16
+      team_id:1
+      project_id:2
+      user_id:2
+      username:bobhero
+      action:create
+      object:todo
+      object_id:10
+      title:任务2-10
+      content:
+      data:
+      created_at: 2016-01-03 12:00:00
+      updated_at: 2016-01-03 12:00:00
+    e_17:
+      id:17
+      team_id:2
+      project_id:3
+      user_id:3
+      username:rockingpanda
+      action:comment
+      object:todo
+      object_id:8
+      title:任务3-8
+      content:评论3-8内容8—1
+      data:
+      created_at: 2016-01-03 17:00:00
+      updated_at: 2016-01-03 17:00:00
+    e_18:
+      id:18
+      team_id:2
+      project_id:3
+      user_id:1
+      username:maker
+      action:comment
+      object:todo
+      object_id:8
+      title:任务3-8
+      content:评论3-8内容8—2
+      data:
+      created_at: 2016-01-03 18:00:00
+      updated_at: 2016-01-03 18:00:00
+
+</pre>
+
+
+
+
+  
+
