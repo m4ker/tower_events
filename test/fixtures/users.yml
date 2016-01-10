@@ -8,6 +8,7 @@ maker:
   id: 1
   email: makerwang@gmail.com
   name: maker
+  avatar: https://tower.im/assets/default_avatars/waves.jpg
   created_at: 2016-01-01 00:00:00
   updated_at: 2016-01-01 00:00:00
 
@@ -15,6 +16,7 @@ bobhero:
   id: 2
   email: bobhero@gmail.com
   name: bobhero
+  avatar: https://tower.im/assets/default_avatars/jokul.jpg
   created_at: 2016-01-01 00:00:00
   updated_at: 2016-01-01 00:00:00
 
@@ -22,5 +24,6 @@ rockingpanda:
   id: 3
   email: rockingpanda@gmail.com
   name: rockingpanda
+  avatar: https://tower.im/assets/default_avatars/jokul.jpg
   created_at: 2016-01-01 00:00:00
   updated_at: 2016-01-01 00:00:00

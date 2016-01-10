@@ -1,6 +1,6 @@
 # Tower Events
 
-这是一个小测试
+这是一个小测试, 可能会改变我的生活.
 
 ## 任务要求
 
@@ -78,6 +78,7 @@ user
     id
     email
     name
+    avator
     created_at
     updated_at
 members
@@ -173,18 +174,21 @@ users:
       id: 1
       email: makerwang@gmail.com
       name: maker
+      avatar: https://tower.im/assets/default_avatars/waves.jpg
       created_at: 2016-01-01 00:00:00
       updated_at: 2016-01-01 00:00:00
     bobhero:
       id: 2
       email: bobhero@gmail.com
       name: bobhero
+      avatar: https://tower.im/assets/default_avatars/jokul.jpg
       created_at: 2016-01-01 00:00:00
       updated_at: 2016-01-01 00:00:00
     rockingpanda:
       id: 3
       email: rockingpanda@gmail.com
       name: rockingpanda
+      avatar: https://tower.im/assets/default_avatars/jokul.jpg
       created_at: 2016-01-01 00:00:00
       updated_at: 2016-01-01 00:00:00
 
@@ -523,7 +527,7 @@ event
       project_id:2
       user_id:2
       username:bobhero
-      action:comment
+      action:comment.create
       object:todo
       object_id:4
       title:任务1-4
@@ -551,7 +555,7 @@ event
       project_id:2
       user_id:1
       username:maker
-      action:comment
+      action:comment.create
       object:todo
       object_id:4
       title:任务1-4
@@ -579,7 +583,7 @@ event
       project_id:2
       user_id:2
       username:bobhero
-      action:comment
+      action:comment.create
       object:todo
       object_id:4
       title:任务1-4
@@ -635,7 +639,7 @@ event
       project_id:3
       user_id:3
       username:rockingpanda
-      action:comment
+      action:comment.create
       object:todo
       object_id:8
       title:任务3-8
@@ -649,7 +653,7 @@ event
       project_id:3
       user_id:1
       username:maker
-      action:comment
+      action:comment.create
       object:todo
       object_id:8
       title:任务3-8
