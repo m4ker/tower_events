@@ -1,77 +1,43 @@
-<h1>Events#index</h1>
 
-<div>
-    <% for event in @events %>
-    <div>
-        <%= event.created_at %>
-        <a href="/members/b72afdbb8619428d80f1aabf00188203" class="from" target="_blank"><img alt="maker" class="avatar" src="https://tower.im/assets/default_avatars/waves.jpg"></a>
-        <%= event.username %>
-        <%= event.to_action %>:
-        <%= event.title %>
-        <% if event.content %>
-            <div>
-            <%= event.content %>
-            </div>
-        <% end %>
-    </div>
-    <% end %>
-</div>
-
-<!--
-<div class="events-day weekend" data-absdate="2016-01-10T00:00:00+08:00">
-	<h4 class="events-day-title">今</h4>
-	<div class="events-day-content">
-	    <div class="events-ancestor" data-ancestor-guid="405981f6411b4c939efc9423e264d44d">
-            <h5 class="events-ancestor-title">
-                <a href="/projects/405981f6411b4c939efc9423e264d44d" target="_blank" title="Tower Events">Tower Events</a>
-            </h5>
-
-            <div class="event event-comment" id="event-41974731" data-commentable-guid="6f773a15fb1a41299a9ce431d0539ed2" data-ancestor-guid="405981f6411b4c939efc9423e264d44d" data-ancestor-name="Tower Events" data-ancestor-url="/projects/405981f6411b4c939efc9423e264d44d">
-
-            	<a href="/members/b72afdbb8619428d80f1aabf00188203" class="from" target="_blank"><img alt="maker" class="avatar" src="https://tower.im/assets/default_avatars/waves.jpg"></a>
-
-            	<div class="event-main">
-            		<div class="event-head">
-            			<a class="event-created-at" data-created-at="2016-01-10T22:32:59+08:00" href="#event-41974731">22:32</a>
-            			<span class="event-actor">
-            				<a href="/members/b72afdbb8619428d80f1aabf00188203" class="link-member" target="_blank">maker</a>
-            			</span>
-            			<span class="event-action">
-            				回复了任务
-            			</span>
-            			<span class="event-commentable">
-            				<a href="/projects/405981f6411b4c939efc9423e264d44d/todos/6f773a15fb1a41299a9ce431d0539ed2" class="todo-rest" data-stack="true">模型的测试代码</a>
-            			</span>
-            		</div>
-            		<div class="event-body">
-            			<a href="/projects/405981f6411b4c939efc9423e264d44d/todos/6f773a15fb1a41299a9ce431d0539ed2#fb2c2e0ad91c4b10b4fa2da7009dc7a4" class="event-text" data-stack="true" title="test">test</a>
-            		</div>
-            	</div>
-            </div>
-
-            <div class="event event-common event-todo-add" id="event-41974256" data-ancestor-guid="405981f6411b4c939efc9423e264d44d" data-ancestor-name="Tower Events" data-ancestor-url="/projects/405981f6411b4c939efc9423e264d44d">
-
-	            <a href="/members/b72afdbb8619428d80f1aabf00188203" class="from" target="_blank"><img alt="maker" class="avatar" src="https://tower.im/assets/default_avatars/waves.jpg"></a>
-	            <i class="icon-event"></i>
-
-                <div class="event-main">
-                    <div class="event-head">
-                        <a href="#event-41974256" data-created-at="2016-01-10T22:26:14+08:00" class="event-created-at">22:26</a>
-                        <span class="event-actor">
-                            <a href="/members/b72afdbb8619428d80f1aabf00188203" class="link-member" target="_blank">maker</a>
-                        </span>
-                        <span class="event-action">
-                            创建了任务
-                        </span>
-                        <span class="event-text">
-                            <span class="emphasize">
-                                <a href="/projects/405981f6411b4c939efc9423e264d44d/todos/5f97fb51733e46208a4677da9c322eb5" class="todo-rest" data-stack="true">头像</a>
-                            </span>
-                        </span>
+<div class="container">
+    <div class="page">
+        <div class="page-inner">
+            <% @result.each do |key,value| %>
+            <div class="events-day weekend" data-absdate="<%= key %>">
+                <h4 class="events-day-title"><%= key.strftime('%m/%d') %></h4>
+                <div class="events-day-content">
+                    <div class="events-ancestor" data-ancestor-guid="#">
+                        <% value.each do |event| %>
+                        <h5 class="events-ancestor-title">
+                            <a href="#" target="_blank" title="<%= event.project.name %>"><%= event.project.name %></a>
+                        </h5>
+                        <div class="event event-comment" id="event-41974731" data-commentable-guid="" data-ancestor-guid="" data-ancestor-name="Tower Events" data-ancestor-url="">
+                            <a href="#" class="from" target="_blank"><img alt="<%= event.username %>" class="avatar" src="https://tower.im/assets/default_avatars/waves.jpg"></a>
+                            <div class="event-main">
+                                <div class="event-head">
+                                    <a class="event-created-at" data-created-at="<%= event.created_at %>" href="#"><%= event.created_at.strftime('%T') %></a>
+                                    <span class="event-actor">
+                                        <a href="#" class="link-member" target="_blank">maker</a>
+                                    </span>
+                                    <span class="event-action">
+                                        <%= event.to_action %>
+                                    </span>
+                                    <span class="event-text">
+                                        <a href="#" class="todo-rest" data-stack="true"><%= event.title %></a>
+                                    </span>
+                                </div>
+                                <% if event.content %>
+                                <div class="event-body">
+                                    <a href="#" class="event-text" data-stack="true" title="test"><%= event.content %></a>
+                                </div>
+                                <% end %>
+                            </div>
+                       </div>
+                        <% end %>
                     </div>
                 </div>
             </div>
+            <% end %>
         </div>
     </div>
 </div>
--->

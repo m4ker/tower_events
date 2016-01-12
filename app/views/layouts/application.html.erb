@@ -7,8 +7,23 @@
   <%= csrf_meta_tags %>
 </head>
 <body>
-
-<%= yield %>
-
+<div id="wrapper">
+  <header>
+    <div class="logo">我是攻城师</div>
+    <ul class="nav">
+      <li><a href="#">项目</a></li>
+      <li class="active"><a href="#">动态</a></li>
+      <li><a href="#">周报</a></li>
+      <li><a href="#">日历</a></li>
+      <li><a href="#">团队</a></li>
+      <li><a href="#">我自己</a></li>
+    </ul>
+    <div class="command-bar"></div>
+  </header>
+  <%= yield %>
+  <footer>
+  	&copy; <a href="#" target="_blank">XXXX</a>
+  </footer>
+</div>
 </body>
 </html>

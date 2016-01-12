@@ -1,3 +1,81 @@
 // Place all the styles related to the events controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+
+
+.container {
+
+}
+
+.page {
+  background: #fff;
+}
+
+.page-inner {
+  padding: 40px;
+}
+
+
+.events-day {
+  /*border: 1px solid red;*/
+  h4.events-day-title {
+    height:50px;
+    line-height:50px;
+    background: #afd9ee;
+  }
+
+  .events-day-content {
+    .events-ancestor {
+      position: relative;
+      h5.events-ancestor-title {
+        /*
+        position: absolute;
+        top:-30px;
+        right:0px;
+        */
+        text-align:right;
+      }
+      .event {
+        position: relative;
+        height:80px;
+        .avatar {
+          position: absolute;
+          top:0px;
+          left:100px;
+          width:50px;
+          height:50px;
+        }
+        .event-main {
+          .event-head {
+            position: absolute;
+            top:0px;
+            left:200px;
+            .event-created-at {
+              position: absolute;
+              top:0px;
+              left:-200px;
+            }
+            .event-actor {
+            }
+            .event-action {
+            }
+            .event-text {
+            }
+          }
+          .event-body {
+            position: absolute;
+            top:30px;
+            left:200px;
+            .event-text {
+
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+
+
+
