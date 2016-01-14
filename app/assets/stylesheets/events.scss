@@ -17,23 +17,35 @@
 
 
 .events-day {
-  /*border: 1px solid red;*/
+  position: relative;
   h4.events-day-title {
-    height:50px;
-    line-height:50px;
+    z-index: 20;
+    position:absolute;
+    top:0px;
+    left:0px;
+    text-align:center;
+    
+    height:40px;
+    width:80px;
+
     background: #afd9ee;
+    .date{
+      display:block;
+    }
+    .day{
+      display:block;
+    }
   }
 
   .events-day-content {
     .events-ancestor {
       position: relative;
       h5.events-ancestor-title {
-        /*
-        position: absolute;
-        top:-30px;
-        right:0px;
-        */
+        z-index:10;
+        background:#eaf2fa;
         text-align:right;
+        height:20px;
+        padding:10px 0;
       }
       .event {
         position: relative;
@@ -44,6 +56,7 @@
           left:100px;
           width:50px;
           height:50px;
+          border-radius: 25px 25px;
         }
         .event-main {
           .event-head {
@@ -56,6 +69,7 @@
               left:-200px;
             }
             .event-actor {
+
             }
             .event-action {
             }
@@ -76,6 +90,13 @@
   }
 }
 
-
-
+#btn-load-more {
+  display:block;
+  text-align:center;
+  width:120px;
+  height:24px;
+  line-height:24px;
+  background: #eee;
+  margin:0 380px;
+}
 

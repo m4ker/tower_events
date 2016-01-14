@@ -1,23 +1,29 @@
-
 <div class="container">
     <div class="page">
         <div class="page-inner">
             <% @result.each do |key,value| %>
+            <% pname = nil %>
             <div class="events-day weekend" data-absdate="<%= key %>">
-                <h4 class="events-day-title"><%= key.strftime('%m/%d') %></h4>
+                <h4 class="events-day-title">
+                <span class="date"><%= key.strftime('%-m/%-d') %></span>
+                <span class="day"><%= key.strftime('%A') %></span>
+                </h4>
                 <div class="events-day-content">
                     <div class="events-ancestor" data-ancestor-guid="#">
                         <% value.each do |event| %>
+                        <% if event.project.name != pname %>
                         <h5 class="events-ancestor-title">
                             <a href="#" target="_blank" title="<%= event.project.name %>"><%= event.project.name %></a>
                         </h5>
+                        <% pname = event.project.name %>
+                        <% end %>
                         <div class="event event-comment" id="event-41974731" data-commentable-guid="" data-ancestor-guid="" data-ancestor-name="Tower Events" data-ancestor-url="">
                             <a href="#" class="from" target="_blank"><img alt="<%= event.username %>" class="avatar" src="https://tower.im/assets/default_avatars/waves.jpg"></a>
                             <div class="event-main">
                                 <div class="event-head">
-                                    <a class="event-created-at" data-created-at="<%= event.created_at %>" href="#"><%= event.created_at.strftime('%T') %></a>
+                                    <a class="event-created-at" data-created-at="<%= event.created_at %>" href="#"><%= event.created_at.strftime('%k:%S') %></a>
                                     <span class="event-actor">
-                                        <a href="#" class="link-member" target="_blank">maker</a>
+                                        <a href="#" class="link-member" target="_blank"><%= event.username %></a>
                                     </span>
                                     <span class="event-action">
                                         <%= event.to_action %>
@@ -32,11 +38,14 @@
                                 </div>
                                 <% end %>
                             </div>
-                       </div>
+                        </div>
                         <% end %>
                     </div>
                 </div>
             </div>
+            <% end %>
+            <% if @load_more %>
+            <a href="javascript:;" id="btn-load-more">加载更多内容</a>
             <% end %>
         </div>
     </div>

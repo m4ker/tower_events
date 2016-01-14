@@ -57,6 +57,10 @@ header .nav li {
     display:inline-block;
 }
 
+header .nav li.active {
+    font-weight: bold;
+}
+
 header .command-bar {
 
 }
