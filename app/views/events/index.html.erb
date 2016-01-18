@@ -9,15 +9,15 @@
                 <span class="day"><%= key.strftime('%A') %></span>
                 </h4>
                 <div class="events-day-content">
-                    <div class="events-ancestor" data-ancestor-guid="#">
-                        <% value.each do |event| %>
-                        <% if event.project.name != pname %>
+                    <% value.each do |event| %>
+                    <% if event.project.name != pname %>
+                    <div class="events-ancestor" data-ancestor-guid="<%= event.project.id %>">
                         <h5 class="events-ancestor-title">
                             <a href="#" target="_blank" title="<%= event.project.name %>"><%= event.project.name %></a>
                         </h5>
                         <% pname = event.project.name %>
-                        <% end %>
-                        <div class="event event-comment" id="event-41974731" data-commentable-guid="" data-ancestor-guid="" data-ancestor-name="Tower Events" data-ancestor-url="">
+                    <% end %>
+                        <div class="event event-xxxx" id="event-<%= event.id %>" guid="<%= event.id %>">
                             <a href="#" class="from" target="_blank"><img alt="<%= event.username %>" class="avatar" src="https://tower.im/assets/default_avatars/waves.jpg"></a>
                             <div class="event-main">
                                 <div class="event-head">
@@ -39,7 +39,7 @@
                                 <% end %>
                             </div>
                         </div>
-                        <% end %>
+                    <% end %>
                     </div>
                 </div>
             </div>
@@ -50,3 +50,48 @@
         </div>
     </div>
 </div>
+
+<script type="text/html" id="tpl-events-day">
+	<div class="events-day" data-absdate="{{ date }}">
+		<h4 class="events-day-title">
+            <span class="date"></span>
+            <span class="day"></span>
+        </h4>
+		<div class="events-day-content">
+		</div>
+	</div>
+</script>
+
+<script type="text/html" id="tpl-events-ancestor">
+    <div class="events-ancestor" data-ancestor-guid="{{ guid }}">
+        <h5 class="events-ancestor-title">
+            <a href="{{ url }}" target="_blank" title="{{ name }}">{{ name }}</a>
+        </h5>
+
+    </div>
+</script>
+
+<script type="text/html" id="tpl-events-event">
+    <div class="event event-comment" id="event-{{ id }}" guid="{{ id }}">
+        <a href="#" class="from" target="_blank"><img alt="{{ username }}" class="avatar" src="https://tower.im/assets/default_avatars/waves.jpg"></a>
+        <div class="event-main">
+            <div class="event-head">
+                <a class="event-created-at" data-created-at="{{ created_at }}" href="#">{{ created_at }}</a>
+                <span class="event-actor">
+                    <a href="#" class="link-member" target="_blank">{{ username }}</a>
+                </span>
+                <span class="event-action">
+                    {{ to_action }}
+                </span>
+                <span class="event-text">
+                    <a href="#" class="todo-rest" data-stack="true">{{ title }}</a>
+                </span>
+            </div>
+            {{ if content }}
+            <div class="event-body">
+                <a href="#" class="event-text" data-stack="true" title="test">{{ content }}</a>
+            </div>
+            {{ end }}
+        </div>
+    </div>
+</script>

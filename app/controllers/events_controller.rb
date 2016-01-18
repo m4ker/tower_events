@@ -3,19 +3,23 @@ class EventsController < ApplicationController
     team_id = params[:team_id]
     limit   = 5
 
-    @result = Hash.new
-    # 取出动态
-    events = Event.where("team_id = ?", team_id).order(created_at: :desc).limit(limit)
-    for event in events
-      # 按时间分组
-      time = Time.parse(event.created_at.strftime('%Y-%m-%d'))
-      if @result.has_key?(time)
-        @result[time].push(event)
-      else
-        @result[time] = [event]
-      end
-    end
+    events = Event.find_latest_events(team_id, limit)
+
+    @result = Event.by_day(events)
     # 是否加载更多
     @load_more = events.length == limit
+  end
+
+  def load_more
+    last_id = params[:last_id]
+    team_id = params[:team_id]
+    limit   = 5
+
+    events = Event.find_events_before(team_id, last_id, limit)
+    render :json => events.map { |event| event.as_json(:methods => :to_action) }
+
+    #format.json do
+    #  render :json => @contacts.map { |contact| {:id => contact.id, :name => contact.name} }
+    #end
   end
 end

@@ -43,30 +43,26 @@ class Event < ActiveRecord::Base
     end
   end
 
-  # todo: 这个方法放这里是不对的
-  def find_latest_events_by_day(team_id, limit = 5)
+  def self.find_latest_events(team_id, limit = 5)
+    Event.where("team_id = ?", team_id).order(created_at: :desc).limit(limit)
+  end
+
+  def self.by_day(events)
     result = Hash.new
-    events = self.find_latest(team_id, limit)
     for event in events
-      time = event.create.strftime('%Y-%m-%d')
+      # 按时间分组
+      time = Time.parse(event.created_at.strftime('%Y-%m-%d'))
       if result.has_key?(time)
         result[time].push(event)
       else
-        result[time] = Array.new
+        result[time] = [event]
       end
     end
     result
   end
 
-  # todo: 这个方法放这里是不对的
-  def find_events_latest(team_id, limit = 5)
-    Event.where("team_id = ?", team_id).order(created_at: :desc).limit(limit);
-  end
-
-  # todo: 这个方法放这里是不对的
-  def find_events_before(team_id, id, limit = 5)
-    event = Event.find(id);
-    Event.where("team_id = ? AND created_at < ?", team_id, event.created_at).order(created_at: :desc).limit(limit);
+  def self.find_events_before(team_id, id, limit = 5)
+    Event.where("team_id = ? AND id < ?", team_id, id).order(created_at: :desc).limit(limit);
   end
 
 end

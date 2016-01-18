@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
   get 'events/index'
+  get 'events/load_more'
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
