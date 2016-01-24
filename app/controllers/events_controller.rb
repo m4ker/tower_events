@@ -16,7 +16,7 @@ class EventsController < ApplicationController
     limit   = 5
 
     events = Event.find_events_before(team_id, last_id, limit)
-    render :json => events.map { |event| event.as_json(:methods => :to_action) }
+    render :json => events.map { |event| event.as_json(:methods => [:to_action, :absdate, :day, :date, :time, :project]) }
 
     #format.json do
     #  render :json => @contacts.map { |contact| {:id => contact.id, :name => contact.name} }

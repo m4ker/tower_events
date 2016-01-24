@@ -43,6 +43,22 @@ class Event < ActiveRecord::Base
     end
   end
 
+  def absdate
+    self.created_at.strftime('%Y-%m-%d')
+  end
+
+  def date
+    self.created_at.strftime('%-m/%-d')
+  end
+
+  def day
+    self.created_at.strftime('%A')
+  end
+
+  def time
+    self.created_at.strftime('%k:%S')
+  end
+
   def self.find_latest_events(team_id, limit = 5)
     Event.where("team_id = ?", team_id).order(created_at: :desc).limit(limit)
   end

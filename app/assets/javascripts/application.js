@@ -13,9 +13,11 @@
 //= require jquery
 //= require jquery_ujs
 //= require turbolinks
+//= require mustache.min.js
 //= require_tree .
 
 $(function(){
+    // 下拉加载
     if ($('#btn-load-more').length > 0) {
         var load = load_more();
         $(window).scroll(function(e, h){
@@ -29,6 +31,7 @@ $(function(){
     }
 });
 
+// 取GET参数
 function params(name){
     var uri = location.search;
     var obj = {};
@@ -40,48 +43,52 @@ function params(name){
     return obj[name];
 }
 
-var tplEngine = function(tpl, data) {
-    var reg = /<%([^%>]+)?%>/g,
-        regOut = /(^( )?(if|for|else|switch|case|break|{|}))(.*)?/g,
-        code = 'var r=[];\n',
-        cursor = 0;
-
-    var add = function(line, js) {
-        js? (code += line.match(regOut) ? line + '\n' : 'r.push(' + line + ');\n') :
-            (code += line != '' ? 'r.push("' + line.replace(/"/g, '\\"') + '");\n' : '');
-        return add;
-    }
-    while(match = reg.exec(tpl)) {
-        add(tpl.slice(cursor, match.index))(match[1], true);
-        cursor = match.index + match[0].length;
-    }
-    add(tpl.substr(cursor, tpl.length - cursor));
-    code += 'return r.join("");';
-    return new Function(code.replace(/[\r\t\n]/g, '')).apply(data);
-};
-
+// AJAX加载更多
 function load_more() {
     var running = false;
     return function () {
         if (!running) {
-            running = true;
-            var last_id = $('.event:last').attr('guid');
-            $.ajax({
-                url : '/events/load_more',
-                data : {
-                    last_id : last_id,
-                    team_id : params('team_id')
-                },
-                method : 'get',
-                dataType : 'json',
-                success : function (data) {
-                    console.log(data)
-
-                },
-                complete : function () {
-                    running = false;
-                }
-            });
+            var disabled = $('#btn-load-more').attr('disabled');
+            if (!disabled) {
+                running = true;
+                var last_id = $('.event:last').attr('guid');
+                $.ajax({
+                    url : '/events/load_more',
+                    data : {
+                        last_id : last_id,
+                        team_id : params('team_id')
+                    },
+                    method : 'get',
+                    dataType : 'json',
+                    success : function (data) {
+                        console.log(data)
+                        if (data.length > 0) {
+                            for(var i in data) {
+                                insert_event(data[i])
+                            }
+                        } else {
+                            $('#btn-load-more').attr('disabled', true)
+                        }
+                    },
+                    complete : function () {
+                        running = false;
+                    }
+                });
+            }
         }
     }
+}
+
+// 向页面内插入一条动态
+function insert_event(obj) {
+    if ($('.events-day[data-absdate='+obj.absdate+']').length === 0) {
+        // insert day
+        var html = Mustache.render($('#tpl-events-day').text(), obj);
+        $('#btn-load-more').before(html);
+    }
+    // insert event
+    html = $(Mustache.render($('#tpl-events-event').text(), obj));
+    if ($('.events-ancestor:last').attr('data-ancestor-guid') == html.attr('data-ancestor-guid'))
+        html.find('.events-ancestor-title').remove();
+    $('.events-day[data-absdate='+obj.absdate+'] .events-day-content').append(html);
 }
