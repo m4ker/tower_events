@@ -8,7 +8,7 @@ maker:
   id: 1
   email: makerwang@gmail.com
   name: maker
-  # Failure/Error: raise Fixture::FixtureError, %(table "#{table_name}" has no column named "#{name}".)
+  # TODO: Failure/Error: raise Fixture::FixtureError, %(table "#{table_name}" has no column named "#{name}".)
   # ActiveRecord::Fixture::FixtureError:
   #         table "users" has no column named "avatar".
   #avatar: "https://tower.im/assets/default_avatars/waves.jpg"

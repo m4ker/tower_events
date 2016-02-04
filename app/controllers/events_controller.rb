@@ -7,6 +7,8 @@ class EventsController < ApplicationController
       team_id = params[:team_id]
       limit   = 5
 
+      raise ArgumentError, "last_id required" unless team_id
+
       # 检查team
       team = Team.find(team_id)
 
@@ -26,6 +28,9 @@ class EventsController < ApplicationController
       last_id = params[:last_id]
       team_id = params[:team_id]
       limit   = 5
+
+      raise ArgumentError, "last_id required" unless last_id
+      raise ArgumentError, "last_id required" unless team_id
 
       team = Team.find(team_id)
 

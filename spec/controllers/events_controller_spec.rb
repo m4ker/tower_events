@@ -23,33 +23,26 @@ RSpec.describe EventsController, type: :controller do
         end
 
         it "no team" do
+            # /events/index
+            get :index
+            expect(response).to have_http_status(404)
         end
     end
 
     describe "#load_more" do
-        before(:all) do
-        end
-
         it "load more" do
             # /events/load_more?last_id=11&team_id=1
             get :load_more, team_id:1, last_id:11
             expect(response).to have_http_status(200)
         end
 
-        #it "load more no last id" do
+        it "load more arguments" do
             # http://localhost:3000/events/load_more?last_id=11&team_id=1
-        #end
+            get :load_more, team_id:1
+            expect(response).to have_http_status(404)
 
-        #it "load after last page" do
-            # http://localhost:3000/events/load_more?last_id=1&team_id=1
-        #end
-
-        #it "load no team"
-
-        #end
-
-        #it "load wrong params" do
-
-        #end
+            get :load_more
+            expect(response).to have_http_status(404)
+        end
     end
 end
