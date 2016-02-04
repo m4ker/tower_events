@@ -683,5 +683,16 @@ event
 
 
 
+## 相关链接 
+
+### Rspec
+
+- https://github.com/rspec/rspec-rails
+- https://www.relishapp.com/rspec/rspec-rails/docs/model-specs
+
+### Websocket
+
+- https://github.com/websocket-rails/
+
   
 

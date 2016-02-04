@@ -1,25 +1,38 @@
 class EventsController < ApplicationController
+
+  # 动态列表
+  # TODO: 权限验证
   def index
-    team_id = params[:team_id]
-    limit   = 5
+    begin
+      team_id = params[:team_id]
+      limit   = 5
 
-    events = Event.find_latest_events(team_id, limit)
+      # 检查team
+      team = Team.find(team_id)
 
-    @result = Event.by_day(events)
-    # 是否加载更多
-    @load_more = events.length == limit
+      events = Event.find_latest_events(team_id, limit)
+      @result = Event.by_day(events)
+      # 是否加载更多
+      @load_more = events.length == limit
+    rescue Exception
+      render :text => 'Not Found', :status => '404'
+    end
   end
 
+  # 持续加载
+  # TODO: 权限验证
   def load_more
-    last_id = params[:last_id]
-    team_id = params[:team_id]
-    limit   = 5
+    begin
+      last_id = params[:last_id]
+      team_id = params[:team_id]
+      limit   = 5
 
-    events = Event.find_events_before(team_id, last_id, limit)
-    render :json => events.map { |event| event.as_json(:methods => [:to_action, :absdate, :day, :date, :time, :project]) }
+      team = Team.find(team_id)
 
-    #format.json do
-    #  render :json => @contacts.map { |contact| {:id => contact.id, :name => contact.name} }
-    #end
+      events = Event.find_events_before(team_id, last_id, limit)
+      render :json => events.map { |event| event.as_json(:methods => [:to_action, :absdate, :day, :date, :time, :project]) }
+    rescue Exception
+      render :text => 'Not Found', :status => '404'
+    end
   end
 end
