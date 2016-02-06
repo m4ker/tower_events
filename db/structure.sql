@@ -1,4 +1,9 @@
-CREATE TABLE 'users' ('id' INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, 'email' varchar(100) NOT NULL, 'name' varchar(100) NOT NULL, 'created_at' DATETIME NOT NULL, 'updated_at' DATETIME NOT NULL);
+CREATE TABLE 'users' (
+'id' INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
+'email' varchar(100) NOT NULL,
+'name' varchar(100) NOT NULL,
+'avatar' varchar(200) NOT NULL,
+'created_at' DATETIME NOT NULL, 'updated_at' DATETIME NOT NULL);
 CREATE TABLE 'comments' ('id' INTEGER PRIMARY KEY NOT NULL, 'todo_id' INTEGER NOT NULL, 'user_id' INTEGER NOT NULL, 'content' TEXT NOT NULL, 'created_at' DATETIME NOT NULL, 'updated_at' DATETIME NOT NULL);
 CREATE TABLE 'events' (
 'id' INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, 

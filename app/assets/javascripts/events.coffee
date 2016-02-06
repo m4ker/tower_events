@@ -21,7 +21,6 @@
 #= require_tree .
 
 # 取GET参数
-
 params = (name) ->
   uri = location.search
   obj = {}
@@ -34,7 +33,6 @@ params = (name) ->
   obj[name]
 
 # AJAX加载更多
-
 load_more = ->
   running = false
   ->
@@ -64,7 +62,6 @@ load_more = ->
     return
 
 # 向页面内插入一条动态
-
 insert_event = (obj) ->
   if $('.events-day[data-absdate=' + obj.absdate + ']').length == 0
 # insert day

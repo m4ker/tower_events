@@ -2,6 +2,20 @@
 
 这是一个小测试, 可能会改变我的生活.
 
+## 任务进度
+
+基本按照要求完成了功能:
+
+- 设计了events_controller#index和events_controller#load_more实现了动态列表以及ajax的加载, 为了方便测试目前返回5条数据
+- 设计了全部基础模型
+- 编写了一些比较基础的rspec用例
+
+测试方法
+
+- rake db:structure:load
+- rake db:fixtures:load
+- rake spec
+
 ## 任务要求
 
 - 实现动态页面关于「任务」的数据展示(对页面样式无要求),可以持续加载;
@@ -94,7 +108,7 @@ user
     id
     email
     name
-    avator
+    avatar
     created_at
     updated_at
 members

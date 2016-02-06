@@ -5,6 +5,7 @@ class Event < ActiveRecord::Base
   belongs_to :project
   belongs_to :user
 
+  # 动态文案转换
   def to_action
     if self.data
       data = JSON.parse(self.data);
@@ -43,26 +44,32 @@ class Event < ActiveRecord::Base
     end
   end
 
+  # 动态加载用到的数据
   def absdate
     self.created_at.strftime('%Y-%m-%d')
   end
 
+  # 动态加载用到的数据
   def date
     self.created_at.strftime('%-m/%-d')
   end
 
+  # 动态加载用到的数据
   def day
     self.created_at.strftime('%A')
   end
 
+  # 动态加载用到的数据
   def time
     self.created_at.strftime('%k:%S')
   end
 
-  def self.find_latest_events(team_id, limit = 5)
+  # 取最新n条动态
+  def self.find_latest_events(team_id, limit = 50)
     Event.where("team_id = ?", team_id).order(created_at: :desc).limit(limit)
   end
 
+  # 将动态列表按日分组
   def self.by_day(events)
     result = Hash.new
     for event in events
@@ -77,7 +84,8 @@ class Event < ActiveRecord::Base
     result
   end
 
-  def self.find_events_before(team_id, id, limit = 5)
+  # 持续加载取id前n条动态
+  def self.find_events_before(team_id, id, limit = 50)
     Event.where("team_id = ? AND id < ?", team_id, id).order(created_at: :desc).limit(limit);
   end
 

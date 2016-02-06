@@ -1,15 +1,15 @@
 class EventsController < ApplicationController
 
   # 动态列表
-  # TODO: 权限验证
   def index
     begin
       team_id = params[:team_id]
+      # 为了方便测试加载数量控制在5个
+      #limit = 50
       limit   = 5
 
+      # 参数检查
       raise ArgumentError, "last_id required" unless team_id
-
-      # 检查team
       team = Team.find(team_id)
 
       events = Event.find_latest_events(team_id, limit)
@@ -22,16 +22,17 @@ class EventsController < ApplicationController
   end
 
   # 持续加载
-  # TODO: 权限验证
   def load_more
     begin
       last_id = params[:last_id]
       team_id = params[:team_id]
+      # 为了方便测试加载数量控制在5个
+      #limit = 50
       limit   = 5
 
+      # 参数检查
       raise ArgumentError, "last_id required" unless last_id
       raise ArgumentError, "last_id required" unless team_id
-
       team = Team.find(team_id)
 
       events = Event.find_events_before(team_id, last_id, limit)
