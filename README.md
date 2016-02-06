@@ -16,6 +16,11 @@
 - rake db:fixtures:load
 - rake spec
 
+访问方法
+
+- http://localhost:3000/events/index?team_id=1
+- http://localhost:3000/events/index?team_id=2
+
 ## 任务要求
 
 - 实现动态页面关于「任务」的数据展示(对页面样式无要求),可以持续加载;
