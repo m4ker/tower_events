@@ -207,22 +207,22 @@ event
 users:
     maker:
       id: 1
-      email: makerwang@gmail.com
+      email: makerxxxx@gmail.com
       name: maker
       avatar: https://tower.im/assets/default_avatars/waves.jpg
       created_at: 2016-01-01 00:00:00
       updated_at: 2016-01-01 00:00:00
     bobhero:
       id: 2
-      email: bobhero@gmail.com
-      name: bobhero
+      email: bobxxxx@gmail.com
+      name: bobxxxx
       avatar: https://tower.im/assets/default_avatars/jokul.jpg
       created_at: 2016-01-01 00:00:00
       updated_at: 2016-01-01 00:00:00
     rockingpanda:
       id: 3
-      email: rockingpanda@gmail.com
-      name: rockingpanda
+      email: rockingxxxx@gmail.com
+      name: rockingxxxx
       avatar: https://tower.im/assets/default_avatars/jokul.jpg
       created_at: 2016-01-01 00:00:00
       updated_at: 2016-01-01 00:00:00
